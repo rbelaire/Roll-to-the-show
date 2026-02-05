@@ -1,2 +1,91 @@
-import { GameState } from '../GameState' import { DiceOutcome } from '../dice/DiceOutcome'  function clearBases() {   return { first: false, second: false, third: false } }  function scoreRuns(bases: GameState['bases']): number {   return Number(bases.first) + Number(bases.second) + Number(bases.third) }  export function applyOutcome(   state: GameState,   outcome: DiceOutcome ): GameState {   if (state.gameOver) return state    let newState: GameState = {     ...state,     bases: { ...state.bases },     home: { ...state.home },     away: { ...state.away }   }    const battingTeam =     state.inning.half === 'top' ? 'away' : 'home'    switch (outcome.type) {     case 'strikeout': {       newState.outs += 1       break     }      case 'walk': {       if (newState.bases.first && newState.bases.second && newState.bases.third) {         newState[battingTeam].runs += 1       } else {         if (newState.bases.second && newState.bases.first) {           newState.bases.third = true         }         if (newState.bases.first) {           newState.bases.second = true         }         newState.bases.first = true       }       break     }      case 'single': {       newState[battingTeam].runs += scoreRuns(newState.bases)       newState.bases = { first: true, second: false, third: false }       break     }      case 'double': {       newState[battingTeam].runs += scoreRuns(newState.bases)       newState.bases = { first: false, second: true, third: false }       break     }      case 'triple': {       newState[battingTeam].runs += scoreRuns(newState.bases)       newState.bases = { first: false, second: false, third: true }       break     }      case 'home_run': {       newState[battingTeam].runs += scoreRuns(newState.bases) + 1       newState.bases = clearBases()       break     }      case 'error': {       // Treat like a single for now (can specialize later)       newState[battingTeam].runs += scoreRuns(newState.bases)       newState.bases = { first: true, second: false, third: false }       break     }      case 'double_play': {       newState.outs += 2       newState.bases.first = false       break     }   }    // Handle inning transition   if (newState.outs >= 3) {     newState.outs = 0     newState.bases = clearBases()      if (newState.inning.half === 'top') {       newState.inning = {         ...newState.inning,         half: 'bottom'       }     } else {       newState.inning = {         inningNumber: newState.inning.inningNumber + 1,         half: 'top'       }     }   }    return newState }
-	
+cat > src/game/rules/applyOutcome.ts << 'EOF'
+import { GameState } from '../GameState'
+import { DiceOutcome } from '../dice/DiceOutcome'
+
+function clearBases() {
+  return { first: false, second: false, third: false }
+}
+
+function scoreRuns(bases: GameState['bases']): number {
+  return Number(bases.first) + Number(bases.second) + Number(bases.third)
+}
+
+export function applyOutcome(
+  state: GameState,
+  outcome: DiceOutcome
+): GameState {
+  if (state.gameOver) return state
+
+  let newState: GameState = {
+    ...state,
+    bases: { ...state.bases },
+    home: { ...state.home },
+    away: { ...state.away }
+  }
+
+  const battingTeam =
+    state.inning.half === 'top' ? 'away' : 'home'
+
+  switch (outcome.type) {
+    case 'strikeout':
+      newState.outs += 1
+      break
+
+    case 'walk':
+      if (newState.bases.first && newState.bases.second && newState.bases.third) {
+        newState[battingTeam].runs += 1
+      } else {
+        if (newState.bases.second && newState.bases.first) {
+          newState.bases.third = true
+        }
+        if (newState.bases.first) {
+          newState.bases.second = true
+        }
+        newState.bases.first = true
+      }
+      break
+
+    case 'single':
+    case 'error':
+      newState[battingTeam].runs += scoreRuns(newState.bases)
+      newState.bases = { first: true, second: false, third: false }
+      break
+
+    case 'double':
+      newState[battingTeam].runs += scoreRuns(newState.bases)
+      newState.bases = { first: false, second: true, third: false }
+      break
+
+    case 'triple':
+      newState[battingTeam].runs += scoreRuns(newState.bases)
+      newState.bases = { first: false, second: false, third: true }
+      break
+
+    case 'home_run':
+      newState[battingTeam].runs += scoreRuns(newState.bases) + 1
+      newState.bases = clearBases()
+      break
+
+    case 'double_play':
+      newState.outs += 2
+      newState.bases.first = false
+      break
+  }
+
+  if (newState.outs >= 3) {
+    newState.outs = 0
+    newState.bases = clearBases()
+
+    if (newState.inning.half === 'top') {
+      newState.inning = { ...newState.inning, half: 'bottom' }
+    } else {
+      newState.inning = {
+        inningNumber: newState.inning.inningNumber + 1,
+        half: 'top'
+      }
+    }
+  }
+
+  return newState
+}
+EOF
