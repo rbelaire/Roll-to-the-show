@@ -1,34 +1,63 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createNewGame } from './game/createNewGame'
+import { playAtBat } from './game/GameController'
+import { GameState } from './game/GameState'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [gameState, setGameState] = useState<GameState>(() =>
+    createNewGame()
+  )
+  const [lastOutcome, setLastOutcome] = useState<string>('')
+
+  function handleRoll() {
+    const { outcome, nextState } = playAtBat(gameState)
+    setGameState(nextState)
+    setLastOutcome(outcome.description)
+  }
+
+  const battingTeam =
+    gameState.inning.half === 'top' ? 'Away' : 'Home'
 
   return (
-    <>
+    <div style={{ padding: 16, fontFamily: 'sans-serif' }}>
+      <h1>Roll to the Show</h1>
+
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <strong>Inning:</strong>{' '}
+        {gameState.inning.inningNumber} ({gameState.inning.half})
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+      <div>
+        <strong>Outs:</strong> {gameState.outs}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+      <div>
+        <strong>Batting:</strong> {battingTeam}
+      </div>
+
+      <div>
+        <strong>Score:</strong> Away {gameState.away.runs} – Home{' '}
+        {gameState.home.runs}
+      </div>
+
+      <div style={{ marginTop: 8 }}>
+        <strong>Bases:</strong>{' '}
+        {gameState.bases.first ? '1B ' : ''}
+        {gameState.bases.second ? '2B ' : ''}
+        {gameState.bases.third ? '3B ' : '—'}
+      </div>
+
+      <button
+        onClick={handleRoll}
+        style={{ marginTop: 16, padding: 12 }}
+      >
+        ROLL
+      </button>
+
+      <div style={{ marginTop: 16 }}>
+        <em>{lastOutcome}</em>
+      </div>
+    </div>
   )
 }
 
