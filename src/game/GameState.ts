@@ -1,0 +1,2 @@
+// Core baseball game state. // This file must contain types only — no logic.  export type BasesState = {   first: boolean   second: boolean   third: boolean }  export type TeamScore = {   runs: number }  export type InningHalf = 'top' | 'bottom'  export type InningState = {   inningNumber: number   half: InningHalf }  export type GameState = {   inning: InningState   outs: number   bases: BasesState   home: TeamScore   away: TeamScore   gameOver: boolean }
+	
