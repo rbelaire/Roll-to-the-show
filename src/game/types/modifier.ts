@@ -1,0 +1,2 @@
+import type { OutcomeId } from "./dice";  export type ModifierScope = "game" | "tier" | "run";  export type ModifierDuration =   | { kind: "rollsRemaining"; remaining: number }   | { kind: "gamesRemaining"; remaining: number }   | { kind: "tierEnd" }   | { kind: "runEnd" };  export type ModifierEffect =   | { kind: "mul"; outcomeId: OutcomeId; factor: number }   | { kind: "add"; outcomeId: OutcomeId; delta: number };  export type Modifier = {   id: string;   name: string;   scope: ModifierScope;   duration: ModifierDuration;   effects: ModifierEffect[]; };
+

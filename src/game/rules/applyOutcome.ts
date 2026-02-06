@@ -1,4 +1,3 @@
-cat > src/game/rules/applyOutcome.ts << 'EOF'
 import { GameState } from '../GameState'
 import { DiceOutcome } from '../dice/DiceOutcome'
 
@@ -88,4 +87,3 @@ export function applyOutcome(
 
   return newState
 }
-EOF
