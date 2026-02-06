@@ -85,7 +85,7 @@
 }
 
 .statLabel {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   color: var(--text-secondary);
   letter-spacing: 0.05em;

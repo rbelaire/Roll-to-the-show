@@ -26,7 +26,7 @@ body {
 #root {
   width: 100%;
   max-width: 480px;
-  padding: var(--space-md);
+  padding: max(var(--space-md), env(safe-area-inset-top)) max(var(--space-md), env(safe-area-inset-right)) max(var(--space-md), env(safe-area-inset-bottom)) max(var(--space-md), env(safe-area-inset-left));
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
