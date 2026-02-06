@@ -1,0 +1,41 @@
+:root {
+  /* Colors — dark theme */
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-card: #0f3460;
+  --bg-surface: #222244;
+
+  --text-primary: #e8e8e8;
+  --text-secondary: #a0a0b8;
+  --text-muted: #6a6a80;
+
+  --accent: #e94560;
+  --accent-hover: #ff6b81;
+  --accent-green: #4ecdc4;
+  --accent-gold: #ffd700;
+  --accent-blue: #4a9eff;
+
+  --hit-color: #4ecdc4;
+  --out-color: #e94560;
+  --hr-color: #ffd700;
+  --walk-color: #4a9eff;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Touch targets */
+  --touch-min: 44px;
+
+  /* Borders */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Typography */
+  --font-mono: 'Courier New', monospace;
+  --font-body: system-ui, -apple-system, sans-serif;
+}

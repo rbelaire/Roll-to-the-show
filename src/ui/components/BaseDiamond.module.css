@@ -1,0 +1,60 @@
+.diamond {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-md) 0;
+}
+
+.field {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.base {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transform: rotate(45deg);
+  border: 2px solid var(--text-muted);
+  background: transparent;
+  border-radius: 2px;
+}
+
+.base.occupied {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+.first {
+  right: 4px;
+  top: 50%;
+  transform: rotate(45deg) translateY(-50%);
+  top: 40px;
+}
+
+.second {
+  left: 50%;
+  top: 4px;
+  transform: rotate(45deg) translateX(-50%);
+  left: 40px;
+}
+
+.third {
+  left: 4px;
+  top: 50%;
+  transform: rotate(45deg) translateY(-50%);
+  top: 40px;
+}
+
+.home {
+  left: 50%;
+  bottom: 4px;
+  transform: rotate(45deg) translateX(-50%);
+  left: 40px;
+  border-color: var(--text-secondary);
+  background: var(--text-secondary);
+  width: 14px;
+  height: 14px;
+}

@@ -1,0 +1,103 @@
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.header {
+  text-align: center;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.record {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.statValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
+.wins { color: var(--accent-green); }
+.losses { color: var(--out-color); }
+
+.spacer { flex: 1; }
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.playBtn {
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-md);
+  background: var(--accent);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  transition: background 0.15s;
+}
+
+.playBtn:hover { background: var(--accent-hover); }
+
+.backBtn {
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--bg-card);
+}
+
+.backBtn:hover { border-color: var(--text-muted); }
+
+.complete {
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+.completeTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: var(--space-sm);
+}
+
+.completeMsg {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
