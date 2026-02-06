@@ -34,3 +34,62 @@ export const outcomeDescriptions: Record<OutcomeId, OutcomeDescription> = {
   '3B': { id: '3B', label: 'Triple',        shortLabel: '3B' },
   HR:   { id: 'HR', label: 'Home Run',      shortLabel: 'HR' },
 }
+
+export const outcomeCommentary: Record<OutcomeId, string[]> = {
+  K: [
+    'Sat him down swinging.',
+    'Caught looking! Take a seat.',
+    'Nothing but air on that one.',
+    'Whiffed on the heater.',
+    'Punch him out!',
+  ],
+  OUT: [
+    'Routine play, one away.',
+    'Fielded cleanly. Nothing doing.',
+    'Right at him. Easy out.',
+    'Can of corn.',
+    'Chalk up another out.',
+  ],
+  DP: [
+    'Around the horn! Two gone!',
+    'Twin killing!',
+    'They turned two on that one.',
+    'Bang-bang double play!',
+    'Two for the price of one.',
+  ],
+  BB: [
+    'Ball four — take your base.',
+    'A free pass to first.',
+    'Good eye up there.',
+    'Patient at-bat pays off.',
+    'Couldn\'t find the zone.',
+  ],
+  '1B': [
+    'Lines one into the outfield.',
+    'Slaps it through the infield.',
+    'A clean knock to start things off.',
+    'Drops one in for a base hit.',
+    'Pokes it the other way. Nice hitting.',
+  ],
+  '2B': [
+    'Splits the gap!',
+    'Off the wall! Into second standing up.',
+    'Ripped into the corner for two.',
+    'A screamer down the line!',
+    'He\'s legging it into second!',
+  ],
+  '3B': [
+    'Deep to the gap — he\'s going for three!',
+    'Rattles around in the corner — triple!',
+    'Wheels! He slides in safe at third!',
+    'A stand-up triple!',
+  ],
+  HR: [
+    'Gone! Way outta here!',
+    'That ball is not coming back.',
+    'Kiss it goodbye!',
+    'He crushed that one!',
+    'Going… going… GONE!',
+    'See ya! That one\'s in the seats.',
+  ],
+}

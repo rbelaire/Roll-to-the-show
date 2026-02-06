@@ -1,5 +1,7 @@
+import { useMemo } from 'react'
 import type { RollEffects } from '../../game/engine/gameEngine'
 import type { AnimState } from '../screens/GameScreen'
+import { outcomeCommentary } from '../../game/types/outcomes'
 import styles from './OutcomeDisplay.module.css'
 
 type Props = {
@@ -16,6 +18,12 @@ function getColorClass(effects: RollEffects): string {
 }
 
 export function OutcomeDisplay({ effects, animState = 'idle' }: Props) {
+  const commentary = useMemo(() => {
+    if (!effects) return null
+    const pool = outcomeCommentary[effects.outcomeId]
+    return pool[Math.floor(Math.random() * pool.length)]
+  }, [effects])
+
   if (animState === 'rolling') {
     return (
       <div className={styles.container}>
@@ -43,6 +51,9 @@ export function OutcomeDisplay({ effects, animState = 'idle' }: Props) {
         <span className={`${styles.runs}${revealClass}`}>
           +{effects.runsScored} run{effects.runsScored > 1 ? 's' : ''}!
         </span>
+      )}
+      {commentary && (
+        <span className={`${styles.commentary}${revealClass}`}>{commentary}</span>
       )}
     </div>
   )
