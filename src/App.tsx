@@ -1,9 +1,9 @@
-import { useReducer, useRef, useCallback } from 'react'
+import { useReducer, useRef, useEffect } from 'react'
 import type { RNG } from './game/dice/resolveDice'
-import { roll as engineRoll } from './game/engine/gameEngine'
 import { battingTable } from './game/types/outcomes'
 import { createBrowserRng } from './ui/state/rng'
-import { createInitialState, deriveScreen } from './ui/state/uiState'
+import { loadOrCreateInitialState, deriveScreen } from './ui/state/uiState'
+import { saveState } from './ui/state/persistence'
 import { uiReducer } from './ui/state/reducer'
 import { TitleScreen } from './ui/screens/TitleScreen'
 import { GameScreen } from './ui/screens/GameScreen'
@@ -12,31 +12,12 @@ import { SeasonHubScreen } from './ui/screens/SeasonHubScreen'
 import { RunHubScreen } from './ui/screens/RunHubScreen'
 
 function App() {
-  const [state, dispatch] = useReducer(uiReducer, undefined, createInitialState)
+  const [state, dispatch] = useReducer(uiReducer, undefined, loadOrCreateInitialState)
   const rngRef = useRef<RNG>(createBrowserRng())
 
+  useEffect(() => { saveState(state) }, [state])
+
   const screen = deriveScreen(state)
-
-  const handleRoll = useCallback(() => {
-    if (!state.app?.game || state.app.game.gameOver) return
-
-    const result = engineRoll(
-      state.app.game,
-      { table: battingTable, modifiers: state.modifiers },
-      rngRef.current,
-    )
-
-    dispatch({
-      type: 'ROLL',
-      game: result.state,
-      effects: result.effects,
-      modifiers: result.modifiers,
-    })
-
-    if (result.effects.isGameOver) {
-      setTimeout(() => dispatch({ type: 'FINISH_GAME' }), 0)
-    }
-  }, [state.app, state.modifiers])
 
   switch (screen) {
     case 'title':
@@ -52,7 +33,9 @@ function App() {
           game={state.app!.game!}
           effects={state.lastRollEffects}
           modifiers={state.modifiers}
-          onRoll={handleRoll}
+          rollContext={{ table: battingTable, modifiers: state.modifiers }}
+          rng={rngRef.current}
+          dispatch={dispatch}
         />
       )
 

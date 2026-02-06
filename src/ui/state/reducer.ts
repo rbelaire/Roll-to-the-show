@@ -7,6 +7,7 @@ import { createRun, recordRunGame } from '../../game/modes/runToTheShow'
 import { resolveEvent } from '../../game/events/resolveEvent'
 import { eventCatalog } from '../../game/events/eventCatalog'
 import { createInitialState } from './uiState'
+import { clearState } from './persistence'
 
 function pickRandomEvent(): import('../../game/types/event').GameEvent {
   return eventCatalog[Math.floor(Math.random() * eventCatalog.length)]
@@ -122,6 +123,7 @@ export function uiReducer(state: UIState, action: UIAction): UIState {
     }
 
     case 'BACK_TO_TITLE': {
+      clearState()
       return createInitialState()
     }
 

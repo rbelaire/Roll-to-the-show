@@ -2,6 +2,7 @@ import type { AppState, GameMode, GameState } from '../../game/types/gameState'
 import type { RollEffects } from '../../game/engine/gameEngine'
 import type { GameEvent } from '../../game/types/event'
 import type { Modifier } from '../../game/types/modifier'
+import { loadState } from './persistence'
 
 export type Screen = 'title' | 'seasonHub' | 'runHub' | 'game' | 'gameOver'
 
@@ -30,6 +31,10 @@ export function createInitialState(): UIState {
     pendingEvent: null,
     modifiers: [],
   }
+}
+
+export function loadOrCreateInitialState(): UIState {
+  return loadState() ?? createInitialState()
 }
 
 export function deriveScreen(state: UIState): Screen {
