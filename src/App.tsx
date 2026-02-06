@@ -10,6 +10,7 @@ import { GameScreen } from './ui/screens/GameScreen'
 import { GameOverScreen } from './ui/screens/GameOverScreen'
 import { SeasonHubScreen } from './ui/screens/SeasonHubScreen'
 import { RunHubScreen } from './ui/screens/RunHubScreen'
+import { SettingsScreen } from './ui/screens/SettingsScreen'
 
 function App() {
   const [state, dispatch] = useReducer(uiReducer, undefined, loadOrCreateInitialState)
@@ -47,6 +48,16 @@ function App() {
         />
       )
 
+    case 'settings':
+      return (
+        <SettingsScreen
+          settings={state.app!.settings}
+          mode={state.app!.mode}
+          hasSeason={state.app!.season !== null}
+          dispatch={dispatch}
+        />
+      )
+
     case 'seasonHub':
       return (
         <SeasonHubScreen
@@ -54,6 +65,7 @@ function App() {
           onStartGame={() => dispatch({ type: 'START_GAME' })}
           onNewSeason={() => dispatch({ type: 'NEW_SEASON' })}
           onBackToTitle={() => dispatch({ type: 'BACK_TO_TITLE' })}
+          onOpenSettings={() => dispatch({ type: 'OPEN_SETTINGS' })}
         />
       )
 
@@ -67,6 +79,7 @@ function App() {
           onResolveEvent={choice => dispatch({ type: 'RESOLVE_EVENT', choice })}
           onNewRun={() => dispatch({ type: 'NEW_RUN' })}
           onBackToTitle={() => dispatch({ type: 'BACK_TO_TITLE' })}
+          onOpenSettings={() => dispatch({ type: 'OPEN_SETTINGS' })}
         />
       )
   }

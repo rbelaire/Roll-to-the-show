@@ -17,7 +17,7 @@ export function loadState(): UIState | null {
     const json = localStorage.getItem(STORAGE_KEY)
     if (!json) return null
     const parsed = JSON.parse(json) as UIState
-    return { ...parsed, lastRollEffects: null }
+    return { ...parsed, lastRollEffects: null, showSettings: false }
   } catch {
     return null
   }

@@ -1,0 +1,117 @@
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.header {
+  text-align: center;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.settingRow {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settingLabel {
+  font-size: 0.9rem;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.stepperBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: 1px solid var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stepperBtn:hover {
+  border-color: var(--text-muted);
+}
+
+.stepperBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.stepperValue {
+  min-width: 2ch;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.dangerZone {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.dangerLabel {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.resetBtn {
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-md);
+  background: var(--bg-card);
+  color: var(--out-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--out-color);
+}
+
+.resetBtn:hover {
+  background: var(--out-color);
+  color: white;
+}
+
+.spacer { flex: 1; }
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.backBtn {
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-md);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--bg-card);
+}
+
+.backBtn:hover { border-color: var(--text-muted); }

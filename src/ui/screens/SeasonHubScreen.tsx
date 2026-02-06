@@ -7,9 +7,10 @@ type Props = {
   onStartGame: () => void
   onNewSeason: () => void
   onBackToTitle: () => void
+  onOpenSettings: () => void
 }
 
-export function SeasonHubScreen({ season, onStartGame, onNewSeason, onBackToTitle }: Props) {
+export function SeasonHubScreen({ season, onStartGame, onNewSeason, onBackToTitle, onOpenSettings }: Props) {
   const complete = isSeasonComplete(season)
 
   return (
@@ -61,6 +62,9 @@ export function SeasonHubScreen({ season, onStartGame, onNewSeason, onBackToTitl
             New Season
           </button>
         )}
+        <button className={styles.backBtn} onClick={onOpenSettings}>
+          Settings
+        </button>
         <button className={styles.backBtn} onClick={onBackToTitle}>
           Back to Title
         </button>

@@ -14,6 +14,7 @@ type Props = {
   onResolveEvent: (choice: 0 | 1) => void
   onNewRun: () => void
   onBackToTitle: () => void
+  onOpenSettings: () => void
 }
 
 const TIER_LABELS: Record<TierId, string> = {
@@ -37,7 +38,7 @@ function getTierRowClass(tierId: TierId, run: RunState): string {
 
 export function RunHubScreen({
   run, modifiers, pendingEvent,
-  onStartGame, onResolveEvent, onNewRun, onBackToTitle,
+  onStartGame, onResolveEvent, onNewRun, onBackToTitle, onOpenSettings,
 }: Props) {
   const currentTier = run.tiers[run.currentTier]
 
@@ -120,6 +121,9 @@ export function RunHubScreen({
             New Run
           </button>
         )}
+        <button className={styles.backBtn} onClick={onOpenSettings}>
+          Settings
+        </button>
         <button className={styles.backBtn} onClick={onBackToTitle}>
           Back to Title
         </button>

@@ -1,16 +1,17 @@
-import type { AppState, GameMode, GameState } from '../../game/types/gameState'
+import type { AppState, GameMode, GameState, SettingsState } from '../../game/types/gameState'
 import type { RollEffects } from '../../game/engine/gameEngine'
 import type { GameEvent } from '../../game/types/event'
 import type { Modifier } from '../../game/types/modifier'
 import { loadState } from './persistence'
 
-export type Screen = 'title' | 'seasonHub' | 'runHub' | 'game' | 'gameOver'
+export type Screen = 'title' | 'seasonHub' | 'runHub' | 'game' | 'gameOver' | 'settings'
 
 export type UIState = {
   app: AppState | null
   lastRollEffects: RollEffects | null
   pendingEvent: GameEvent | null
   modifiers: Modifier[]
+  showSettings: boolean
 }
 
 export type UIAction =
@@ -23,6 +24,10 @@ export type UIAction =
   | { type: 'NEW_SEASON' }
   | { type: 'NEW_RUN' }
   | { type: 'BACK_TO_TITLE' }
+  | { type: 'OPEN_SETTINGS' }
+  | { type: 'CLOSE_SETTINGS' }
+  | { type: 'UPDATE_SETTINGS'; settings: Partial<SettingsState> }
+  | { type: 'RESET_SEASON' }
 
 export function createInitialState(): UIState {
   return {
@@ -30,6 +35,7 @@ export function createInitialState(): UIState {
     lastRollEffects: null,
     pendingEvent: null,
     modifiers: [],
+    showSettings: false,
   }
 }
 
@@ -41,6 +47,8 @@ export function deriveScreen(state: UIState): Screen {
   if (!state.app) return 'title'
 
   const { app } = state
+
+  if (state.showSettings) return 'settings'
 
   if (app.game && app.game.gameOver) return 'gameOver'
   if (app.game && !app.game.gameOver) return 'game'

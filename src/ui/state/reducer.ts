@@ -127,6 +127,34 @@ export function uiReducer(state: UIState, action: UIAction): UIState {
       return createInitialState()
     }
 
+    case 'OPEN_SETTINGS': {
+      return { ...state, showSettings: true }
+    }
+
+    case 'CLOSE_SETTINGS': {
+      return { ...state, showSettings: false }
+    }
+
+    case 'UPDATE_SETTINGS': {
+      if (!state.app) return state
+      return {
+        ...state,
+        app: {
+          ...state.app,
+          settings: { ...state.app.settings, ...action.settings },
+        },
+      }
+    }
+
+    case 'RESET_SEASON': {
+      if (!state.app) return state
+      return {
+        ...state,
+        app: { ...state.app, season: createSeason() },
+        showSettings: false,
+      }
+    }
+
     default:
       return state
   }
